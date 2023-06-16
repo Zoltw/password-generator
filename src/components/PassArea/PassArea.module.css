@@ -1,0 +1,9 @@
+.passArea {
+    display: flex;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    height: 3rem;
+    width: 15rem;
+    align-items: center;
+    justify-content: center;
+}
