@@ -1,6 +1,4 @@
-import { randomBytes } from 'crypto';
-
-class SecurePasswordGenerator {
+export class SecurePasswordGenerator {
   private readonly alphaLower = 'abcdefghijklmnopqrstuvwxyz';
   private readonly alphaUpper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
   private readonly numbers = '0123456789';
@@ -49,13 +47,9 @@ class SecurePasswordGenerator {
   }
 
   private getSecureRandomNumber(limit: number): number {
-    const byteSize = Math.ceil(Math.log2(limit) / 8);
-    let randBytes = parseInt(randomBytes(byteSize).toString('hex'), 16);
-
-    while (randBytes >= limit) {
-      randBytes = parseInt(randomBytes(byteSize).toString('hex'), 16);
-    }
-
-    return randBytes;
+    const array = new Uint32Array(1);
+    window.crypto.getRandomValues(array);
+    const randomNum = array[0] % limit;
+    return randomNum;
   }
 }

@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 
 interface CheckboxProps {
   label?: string;
-  initialChecked?: boolean;
+  checked?: boolean;
   onCheckChange?: (checked: boolean) => void;
 }
 
-const CheckBox: React.FC<CheckboxProps> = ({ label, initialChecked = false, onCheckChange }): JSX.Element => {
-  const [isChecked, setIsChecked] = useState<boolean>(initialChecked);
+const CheckBox: React.FC<CheckboxProps> = ({ label, checked = true, onCheckChange }): JSX.Element => {
+  const [isChecked, setIsChecked] = useState<boolean>(checked);
 
   const handleCheckboxChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setIsChecked(event.target.checked);
