@@ -1,46 +1,44 @@
-import { useState, useCallback } from 'react';
+import { useCallback, useReducer } from 'react';
 import CheckBox from '@components/CheckBox/CheckBox';
 import Button from '@components/Button/Button';
 import PassArea from '@components/PassArea/PassArea';
 import Slider from '@components/Slider/Slider';
 import { SecurePasswordGenerator } from '@utils/generatorAlgorithm';
+import { initialState, reducer } from '@utils/reducer';
 import style from './App.module.css';
 
 const generator = new SecurePasswordGenerator();
 
 const App = () => {
-  const [generatedText, setGeneratedText] = useState<string>('');
-  const [useNumbers, setUseNumbers] = useState<boolean>(true);
-  const [useSymbols, setUseSymbols] = useState<boolean>(true);
-  const [length, setLength] = useState<number>(8);
+  const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleButtonClick = useCallback(() => {
-    const newPassword = generator.generate(length, useNumbers, useSymbols);
-    setGeneratedText(newPassword);
-  }, [length, useNumbers, useSymbols]);
+    const newPassword = generator.generate(state.length, state.useNumbers, state.useSymbols);
+    dispatch({ type: 'SET_GENERATED_TEXT', payload: newPassword });
+  }, [state.length, state.useNumbers, state.useSymbols]);
 
-  const handleSliderChange = (newValue: number) => {
-    setLength(newValue);
-  };
+  const handleSliderChange = useCallback((newValue: number) => {
+    dispatch({ type: 'SET_LENGTH', payload: newValue });
+  }, []);
 
   return (
     <div className={style.mainComponent}>
       <p>password generator</p>
-      <PassArea text={generatedText}/>
+      <PassArea text={state.generatedText}/>
       <CheckBox 
         label={'numbers'} 
-        checked={useNumbers} 
-        onCheckChange={(isChecked) => setUseNumbers(isChecked)}
+        checked={state.useNumbers} 
+        onCheckChange={(checked) => dispatch({ type: 'SET_USE_NUMBERS', payload: checked })}
       />
       <CheckBox 
         label={'symbols'} 
-        checked={useSymbols} 
-        onCheckChange={(isChecked) => setUseSymbols(isChecked)}
+        checked={state.useSymbols} 
+        onCheckChange={(checked) => dispatch({ type: 'SET_USE_SYMBOLS', payload: checked })}
       />
-      <Slider value={length} onSliderChange={handleSliderChange}/>
-      <p>{length}</p>
+      <Slider value={state.length} onSliderChange={handleSliderChange}/>
+      <p>{state.length}</p>
       <Button text={'generate'} onClick={handleButtonClick}/>
-      <Button text={'copy'} onClick={() => navigator.clipboard.writeText(generatedText)} />
+      <Button text={'copy'} onClick={() => navigator.clipboard.writeText(state.generatedText)} />
     </div>
   )
 }
