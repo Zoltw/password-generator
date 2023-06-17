@@ -1,3 +1,15 @@
 .mainComponent {
     margin: 2rem;
 }
+
+.sliderNumber {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.buttons {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}

@@ -9,6 +9,7 @@ const Slider: React.FC<SliderProps> = ({ value, onSliderChange }): JSX.Element =
   return (
     <div className={style.slider}>
       <input 
+        className={style.sliderInput}
         type="range" 
         min="8" 
         max="30" 

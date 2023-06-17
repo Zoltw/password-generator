@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import style from './CheckBox.module.css';
 
 interface CheckboxProps {
   label?: string;
@@ -18,7 +19,7 @@ const CheckBox: React.FC<CheckboxProps> = ({ label, checked = true, onCheckChang
   };
 
   return (
-    <div>
+    <div className={style.checkBoxComponent}>
       <label>
         <input
           type="checkbox"

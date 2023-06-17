@@ -9,7 +9,7 @@ import style from './App.module.css';
 
 const generator = new SecurePasswordGenerator();
 
-const App = () => {
+const App = (): JSX.Element => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const handleButtonClick = useCallback(() => {
@@ -23,22 +23,25 @@ const App = () => {
 
   return (
     <div className={style.mainComponent}>
-      <p>password generator</p>
       <PassArea text={state.generatedText}/>
       <CheckBox 
         label={'numbers'} 
         checked={state.useNumbers} 
-        onCheckChange={(checked) => dispatch({ type: 'SET_USE_NUMBERS', payload: checked })}
+        onCheckChange={(isChecked) => dispatch({ type: 'SET_USE_NUMBERS', payload: isChecked })}
       />
       <CheckBox 
         label={'symbols'} 
         checked={state.useSymbols} 
-        onCheckChange={(checked) => dispatch({ type: 'SET_USE_SYMBOLS', payload: checked })}
+        onCheckChange={(isChecked) => dispatch({ type: 'SET_USE_SYMBOLS', payload: isChecked })}
       />
-      <Slider value={state.length} onSliderChange={handleSliderChange}/>
-      <p>{state.length}</p>
-      <Button text={'generate'} onClick={handleButtonClick}/>
-      <Button text={'copy'} onClick={() => navigator.clipboard.writeText(state.generatedText)} />
+      <div className={style.sliderNumber}>
+        <Slider value={state.length} onSliderChange={handleSliderChange}/>
+        <p>{state.length}</p>
+      </div>
+      <div className={style.buttons}>
+        <Button text={'generate'} onClick={handleButtonClick} />
+        <Button text={'copy'} onClick={() => navigator.clipboard.writeText(state.generatedText)} />
+      </div>
     </div>
   )
 }

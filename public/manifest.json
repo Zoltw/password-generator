@@ -5,6 +5,10 @@
     "manifest_version": 3,
     "action": {
       "default_popup": "index.html",
-      "default_title": "Open the popup"
+      "default_title": "generate your password"
+    },
+    "icons": {
+      "24": "lock24.png",
+      "192": "lock192.png"
     }
   }
