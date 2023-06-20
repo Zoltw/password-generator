@@ -22,6 +22,7 @@ const CheckBox: React.FC<CheckboxProps> = ({ label, checked = true, onCheckChang
     <div className={style.checkBoxComponent}>
       <label>
         <input
+          className={style.checkBoxInput}
           type="checkbox"
           checked={isChecked}
           onChange={handleCheckboxChange}
