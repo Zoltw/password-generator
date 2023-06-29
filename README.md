@@ -1,5 +1,5 @@
 <p align='center'>
-    <img src='public/lock.svg'/>
+    <img src='chrome/public/lock.svg'/>
 </p>
 
 Generate a secure password, customizing the length, characters and the numbers of passwords you want to generate.
